@@ -5,6 +5,7 @@ import { Nav } from "./components/Nav";
 import { Hero } from "./components/Hero";
 import { Agents } from "./components/Agents";
 import { Process } from "./components/Process";
+import { Founder } from "./components/Founder";
 import { ContactCta } from "./components/ContactCta";
 import { Footer } from "./components/Footer";
 
@@ -54,6 +55,7 @@ export default function App() {
         <Hero />
         <Agents />
         <Process />
+        <Founder />
         <ContactCta />
       </main>
 

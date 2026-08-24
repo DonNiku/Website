@@ -58,6 +58,39 @@ export const HERO_PHOTOS: HeroPhoto[] = [
 
 export const CTA_PHOTO = "/images/cta-fassade.jpg";
 
+export type Founder = {
+  /** Wird am Leerzeichen umbrochen, eine Zeile je Namensteil. */
+  name: string;
+  role: string;
+  /** Kurzer Absatz in der Ich-Form, kein Lebenslauf. */
+  claim: string;
+  photo: string;
+  /** Natürliche Maße der Datei, gegen Layoutsprünge beim Laden. */
+  size: { w: number; h: number };
+};
+
+/**
+ * Die Gründer-Sektion rendert diese Liste. Eine zweite Person ist ein
+ * weiterer Eintrag, das Layout spiegelt die Reihe dann von selbst; an der
+ * Sektion ist dafür nichts zu ändern.
+ *
+ * Zum Portrait: die Vorlage war ein Kreisausschnitt auf Schwarz. Die
+ * Wandfläche ist radial fortgesetzt und der Zuschnitt auf 4:5 gesetzt,
+ * damit die Duotone-Ebene wie bei den übrigen Motiven auf eine durchgehende
+ * Fläche trifft statt auf schwarze Ecken. Helligkeit nach der Behandlung:
+ * 59 von 255, also auf Serienniveau.
+ */
+export const FOUNDERS: Founder[] = [
+  {
+    name: "Patrick Grüßhaber",
+    role: "Gründer",
+    claim:
+      "Abends noch Angebote schreiben. Zwischen zwei Terminen Anfragen beantworten. Sonntags die Woche planen. Genau diese Arbeit nehme ich Ihnen ab — mit Systemen, die laufen, während Sie Ihr Handwerk machen.",
+    photo: "/images/patrick-gruesshaber.jpg",
+    size: { w: 944, h: 1180 },
+  },
+];
+
 export type Agent = {
   index: string;
   name: string;
