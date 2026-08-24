@@ -1,8 +1,9 @@
 # Avolane Website
 
-- Marke: Avolane — KI-Automatisierung für den deutschen Mittelstand, Mainz
+- Marke: Avolane — Prozess-Automatisierung für den deutschen Mittelstand, Mainz
 - Akzentfarbe: #7C3AED (Violett), Verlauf zu #A78BFA
 - Tagline: "Weniger Aufwand. Mehr Wachstum."
 - Sprache: Deutsch, professionell, Sie-Form
 - Animationen: motion/react — nur transform und opacity, spring, prefers-reduced-motion respektieren
 - Deploy-Ziel: Vercel über GitHub Repo DonNiku/Website
+- SPRACH-REGEL (Markenregel): Niemals "KI", "AI" oder "künstliche Intelligenz" in sichtbaren Texten. Immer Prozess-Sprache: Automatisierungen, digitale Prozesse, Agenten.
