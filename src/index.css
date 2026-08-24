@@ -1,0 +1,397 @@
+@import "tailwindcss";
+
+/* Self-hosted variable fonts. Archivo ships a width axis (62-125%),
+   which carries the wide uppercase display setting. */
+@import "@fontsource-variable/archivo/standard.css";
+@import "@fontsource-variable/geist-mono/wght.css";
+
+@theme {
+  --color-ink: #0a0a0b;
+  --color-ink-raised: #101012;
+  --color-line: #24242a;
+  --color-fg: #ededef;
+  --color-fg-dim: #8b8b94;
+  --color-accent: #7c3aed;
+  --color-accent-soft: #a78bfa;
+  /* Fehlerzustände brauchen eine eigene Farbe. Der Markenakzent taugt
+     dafür nicht: Violett markiert auf dieser Seite Auswahl und Betonung,
+     ein Fehler darf damit nicht verwechselbar sein. */
+  --color-danger: #ff7a6b;
+
+  --font-sans: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, "SFMono-Regular", monospace;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Sticky nav clearance for anchor jumps */
+    scroll-padding-top: 5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent-soft);
+    outline-offset: 3px;
+  }
+}
+
+/* ---- Type primitives ------------------------------------------------- */
+/* These live in the components layer on purpose: Tailwind's utilities layer
+   comes after it, so `text-accent` on top of `.u-meta` still wins. */
+
+@layer components {
+  /* Wide, heavy uppercase. The width axis is what makes it read editorial
+     rather than "big bold sans". */
+  .u-display {
+    font-weight: 800;
+    font-stretch: 118%;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 0.85;
+  }
+
+  .u-display-sm {
+    font-weight: 700;
+    font-stretch: 112%;
+    text-transform: uppercase;
+    letter-spacing: -0.015em;
+    line-height: 0.92;
+  }
+
+  /* Versalien-Aussage über und unter Titeln. Groß genug, um als Satz zu
+     lesen, klein genug, um dem Titel nicht die Schau zu stehlen. */
+  .u-statement {
+    font-weight: 650;
+    font-stretch: 108%;
+    text-transform: uppercase;
+    letter-spacing: 0.005em;
+    line-height: 1.15;
+    font-size: clamp(0.95rem, 1.35vw, 1.3rem);
+    color: var(--color-fg-dim);
+  }
+
+  /* Fließtext der Rechtsseiten. Rechtstexte werden gelesen, nicht
+     überflogen: deshalb hier großzügigere Zeilenhöhe und eine engere
+     Zeilenlänge als im Marketingteil. */
+  .u-prose {
+    color: var(--color-fg-dim);
+    line-height: 1.75;
+  }
+
+  .u-prose > h2 {
+    font-weight: 700;
+    font-stretch: 112%;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+    font-size: clamp(1.15rem, 2.1vw, 1.6rem);
+    color: var(--color-fg);
+    margin-top: 3.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .u-prose > h2:first-child {
+    margin-top: 0;
+  }
+
+  .u-prose > h3 {
+    font-weight: 650;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: 0.9rem;
+    color: var(--color-fg);
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .u-prose > p,
+  .u-prose > ul,
+  .u-prose > dl {
+    margin-top: 1rem;
+  }
+
+  .u-prose ul {
+    list-style: disc;
+    padding-left: 1.15rem;
+  }
+
+  .u-prose li::marker {
+    color: var(--color-accent);
+  }
+
+  .u-prose li + li {
+    margin-top: 0.5rem;
+  }
+
+  .u-prose a {
+    color: var(--color-fg);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-color: var(--color-line);
+    transition: text-decoration-color 0.2s ease;
+  }
+
+  .u-prose a:hover {
+    text-decoration-color: var(--color-accent);
+  }
+
+  .u-prose strong {
+    color: var(--color-fg);
+    font-weight: 600;
+  }
+
+  /* Formularfeld. Kein Kasten, nur eine Grundlinie: passt zu den
+     Haarlinien der übrigen Seite und vermeidet die Standard-Browser-Optik.
+     Höhe und Schriftgröße bleiben so, dass iOS beim Fokus nicht zoomt. */
+  .u-field {
+    display: block;
+    width: 100%;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--color-line);
+    border-radius: 0;
+    padding: 0.7rem 0;
+    color: var(--color-fg);
+    font-family: inherit;
+    font-size: 1.0625rem;
+    line-height: 1.5;
+    transition: border-color 0.2s ease;
+  }
+
+  .u-field:focus {
+    outline: none;
+    border-bottom-color: var(--color-accent);
+  }
+
+  .u-field[aria-invalid="true"] {
+    border-bottom-color: var(--color-danger);
+  }
+
+  textarea.u-field {
+    resize: vertical;
+    min-height: 6rem;
+  }
+
+  /* Auswahlfläche für Tage und Zeiten. */
+  .u-slot {
+    border: 1px solid var(--color-line);
+    color: var(--color-fg-dim);
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .u-slot:hover:not(:disabled) {
+    border-color: var(--color-fg-dim);
+    color: var(--color-fg);
+  }
+
+  .u-slot[aria-pressed="true"] {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #fff;
+  }
+
+  .u-slot:disabled {
+    color: #4a4a52;
+    border-color: #1b1b20;
+    cursor: not-allowed;
+    text-decoration: line-through;
+  }
+
+  /* Ladeplatzhalter in Slot-Form, damit beim Eintreffen der Daten nichts
+     springt. */
+  .u-skeleton {
+    background-color: var(--color-ink-raised);
+    border: 1px solid var(--color-line);
+    animation: u-pulse 1.6s ease-in-out infinite;
+  }
+
+  @keyframes u-pulse {
+    0%,
+    100% {
+      opacity: 0.45;
+    }
+    50% {
+      opacity: 0.85;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .u-skeleton {
+      animation: none;
+    }
+  }
+
+  /* Terminal-style metadata */
+  .u-meta {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-fg-dim);
+  }
+
+  .u-outline {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--color-accent);
+  }
+
+  /* Clipping mask for line reveals. The vertical padding is not decorative:
+     at line-height 0.85 the box is shorter than an uppercase umlaut (FÜR,
+     NÄCHSTEN) and shorter than a descender, so both get sliced off. The
+     negative margins keep the visual position unchanged. */
+  .u-mask {
+    display: block;
+    overflow: hidden;
+    padding-top: 0.18em;
+    padding-bottom: 0.1em;
+    margin-top: -0.18em;
+    margin-bottom: -0.1em;
+  }
+
+  /* Einzelnes Hero-Wort. Die Strichbreite liegt dauerhaft an, aber
+     transparent. Zwei Gründe: `-webkit-text-stroke-width` ist nicht
+     animierbar (die Farbe dagegen schon), und ein transparenter Strich
+     zeichnet nichts, der Ruhezustand ist also pixelgleich zur reinen
+     Füllung. */
+  .u-word {
+    display: inline-block;
+    -webkit-text-stroke: 2px transparent;
+  }
+
+  /* Nur echte Zeigergeräte. Auf Touch gibt es keinen Hover-Zustand, dort
+     bliebe der Effekt sonst nach einem Tap hängen. */
+  @media (hover: hover) and (pointer: fine) {
+    .u-word {
+      transition:
+        color 0.3s ease,
+        -webkit-text-stroke-color 0.3s ease,
+        filter 0.3s ease,
+        /* Leichtes Überschwingen, damit der Sprung federt statt zu gleiten. */
+        translate 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .u-word:hover {
+      color: transparent;
+      -webkit-text-stroke-color: var(--color-fg);
+      /* `drop-shadow` statt `text-shadow`: text-shadow zeichnet aus der
+         vollen Glyphenform und füllt die geöffneten Buchstaben mit Violett,
+         was neon statt dezent wirkt. drop-shadow arbeitet auf dem tatsächlich
+         gezeichneten Alphakanal, also nur auf der Kontur. */
+      filter: drop-shadow(0 0 7px color-mix(in srgb, var(--color-accent) 55%, transparent))
+        drop-shadow(0 0 20px color-mix(in srgb, var(--color-accent) 30%, transparent));
+      translate: 0 -4px;
+    }
+
+    /* Nimmt Zeichen vom Konturwechsel aus, die gefüllt bleiben sollen.
+       Die eigene Farbe setzt sich ohnehin gegen das `transparent` des
+       Elternworts durch, hier fehlt nur noch der Strich. */
+    .u-word:hover .u-word-static {
+      -webkit-text-stroke-color: transparent;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .u-word {
+      transition: none;
+    }
+
+    .u-word:hover {
+      translate: none;
+    }
+  }
+}
+
+/* ---- Skip link ------------------------------------------------------- */
+
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  transform: translateY(-200%);
+  background: var(--color-accent);
+  color: #fff;
+  padding: 0.625rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* ---- Grain und Bildbehandlung ---------------------------------------- */
+/* Beides gehört in den components-Layer. Ungelayertes CSS schlägt jede
+   gelayerte Regel, also auch Tailwinds Utilities: `.u-photo` würde sonst
+   mit seinem `position: relative` ein `absolute` am Element gewinnen. */
+
+@layer components {
+  .u-grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+  }
+
+  /* Eine einzige Duotone-Regel für jedes Foto der Seite: entsättigen,
+     abdunkeln, dann den Farbton über eine `color`-Blend-Ebene auf den
+     Markenakzent ziehen. `isolation` hält die Mischung im Rahmen, sonst
+     blendet sie gegen den Seitenhintergrund.
+     Wird ausschließlich über <Photo> gesetzt, damit keine Sonderfälle
+     entstehen. */
+  .u-photo {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background-color: var(--color-ink-raised);
+  }
+}
+
+/* Die Färbung selbst bleibt bewusst ungelayert: sie soll sich gegen jede
+   Utility durchsetzen, damit kein Einzelfall aus der Bildstrecke ausbricht.
+   Nur Box-Eigenschaften wie `position` gehören in den Layer (siehe oben).
+
+   Werte im Browser über alle sechs Motive nebeneinander abgeglichen. Die
+   Tonalität der Vorlagen ist sehr unterschiedlich, deshalb liegt die
+   Färbung bewusst niedrig: darüber kippen helle Motive in eine Lavendel-
+   Fläche, während dunkle fast neutral bleiben, und die Serie fällt
+   auseinander. */
+.u-photo > img {
+  filter: grayscale(1) contrast(1.18) brightness(0.42);
+}
+
+.u-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-color: var(--color-accent);
+  mix-blend-mode: color;
+  opacity: 0.11;
+}
