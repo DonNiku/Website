@@ -6,6 +6,7 @@ import {
   useScroll,
 } from "motion/react";
 import { BOOKING_URL, CTA_LABEL } from "../lib/content";
+import { Logo } from "./Logo";
 
 /**
  * Absolute Ziele, damit dieselbe Navigation auch auf den Rechtsseiten
@@ -41,10 +42,10 @@ export function Nav() {
       >
         <a
           href="/#top"
-          className="u-display-sm text-lg leading-none sm:text-xl"
+          className="text-lg leading-none sm:text-xl"
           aria-label="Avolane, zum Seitenanfang"
         >
-          Avolane
+          <Logo />
         </a>
 
         <div className="flex items-center gap-6 sm:gap-8">

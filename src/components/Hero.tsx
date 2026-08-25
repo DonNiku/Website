@@ -4,9 +4,16 @@ import { CtaButton } from "./CtaButton";
 import { PhotoCycle } from "./Photo";
 import { Ticker } from "./Ticker";
 import { BOOKING_URL, CTA_LABEL, HERO_PHOTOS } from "../lib/content";
+import { STARTSEQUENZ_LAEUFT } from "../lib/intro";
 
-/** Versatz, damit der Titel hinter dem aufziehenden Vorhang hervorkommt. */
-const INTRO = 0.78;
+/**
+ * Versatz, damit der Titel hinter dem aufziehenden Vorhang hervorkommt.
+ *
+ * Ohne Startsequenz muss er null sein: beim zweiten Aufruf in derselben
+ * Sitzung steht kein Vorhang mehr davor, ein Versatz würde das Hero
+ * sekundenlang leer lassen.
+ */
+const INTRO = STARTSEQUENZ_LAEUFT ? 1.25 : 0;
 
 /**
  * Einzelnes Hero-Wort als eigene Hover-Fläche. `inline-block` ist Pflicht:

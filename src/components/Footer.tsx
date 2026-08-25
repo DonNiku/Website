@@ -1,11 +1,12 @@
 import { COMPANY } from "../lib/content";
+import { Logo } from "./Logo";
 
 export function Footer() {
   return (
     <footer className="border-t border-line py-10 sm:py-12">
       <div className="mx-auto flex max-w-[1400px] flex-col gap-6 px-4 sm:px-8 md:flex-row md:items-end md:justify-between">
         <div>
-          <span className="u-display-sm text-lg">{COMPANY.brand}</span>
+          <Logo className="text-lg" />
           <p className="u-meta mt-3">
             {COMPANY.street} · {COMPANY.zip} {COMPANY.city}
           </p>

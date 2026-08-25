@@ -81,6 +81,39 @@
     line-height: 0.92;
   }
 
+  /* Wortmarke. Bewusst nicht `u-display-sm`: der Schriftzug ist
+     kleingeschrieben, die Display-Klasse setzt Versalien. Gewicht und
+     Breitenachse bleiben gleich, damit die Marke zur Typografie der
+     Überschriften gehört. */
+  .u-wordmark {
+    font-weight: 800;
+    font-stretch: 112%;
+    text-transform: lowercase;
+    letter-spacing: -0.015em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  /* Die Passmarke steht an der Stelle eines Kleinbuchstabens. Alle Maße in
+     em, damit sie jeder Schriftgröße folgt.
+
+     Die Werte sind am echten o der Archivo ausgemessen, nicht geschätzt:
+     dessen Punze ist 0.551em hoch, die Dickte 0.635em, die Mitte liegt
+     0.264em über der Grundlinie. Die Zeichnung füllt ihr Kästchen nur zu
+     0.843 (Rahmen samt Strichenden), deshalb 0.551/0.843 = 0.655em Kantenlänge.
+     Der negative Seitenabstand bringt die Dickte auf die des o zurück, sonst
+     reißt die Marke das Wort auseinander. Ohne Versatz säße das Kästchen mit
+     der Unterkante auf der Grundlinie, seine Mitte also 0.328em darüber —
+     die Differenz zu 0.264em ist der Versatz nach unten. */
+  .u-wordmark-o {
+    display: inline-block;
+    width: 0.655em;
+    height: 0.655em;
+    vertical-align: baseline;
+    transform: translateY(0.064em);
+    margin-inline: -0.008em;
+  }
+
   /* Versalien-Aussage über und unter Titeln. Groß genug, um als Satz zu
      lesen, klein genug, um dem Titel nicht die Schau zu stehlen. */
   .u-statement {
