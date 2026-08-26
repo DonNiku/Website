@@ -1,0 +1,5 @@
+# Storno-Links tragen einen persönlichen Token und gehören nicht in den Index.
+User-agent: *
+Disallow: /storno
+
+Sitemap: https://avolane.de/sitemap.xml

@@ -35,6 +35,36 @@
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="de_DE" />
     <meta name="twitter:card" content="summary_large_image" />
+
+    <!--
+      Strukturierte Daten. Bewusst nur Angaben, die auch auf der Seite
+      stehen: Anschrift, E-Mail und USt-IdNr. stammen aus dem Impressum,
+      die Beschreibung ist die Meta-Description. Keine Telefonnummer —
+      es gibt auf der Website keine.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Avolane",
+        "url": "https://avolane.de/",
+        "description": "Avolane aus Mainz übernimmt wiederkehrende Abläufe im Mittelstand: Anfragen, Termine, E-Mails, Nachfassen. Weniger Aufwand. Mehr Wachstum.",
+        "image": "https://avolane.de/og.png",
+        "email": "hallo@avolane.de",
+        "vatID": "DE342681761",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Am Stollhenn 12",
+          "postalCode": "55120",
+          "addressLocality": "Mainz",
+          "addressCountry": "DE"
+        },
+        "founder": {
+          "@type": "Person",
+          "name": "Patrick Grüßhaber"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
