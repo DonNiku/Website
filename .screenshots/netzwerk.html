@@ -1,0 +1,55 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Netzwerkprotokoll Buchungsflow</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; padding:28px 32px; background:#0b0b0d; color:#e8e6e3;
+         font:13px/1.55 ui-monospace,"SF Mono",Menlo,monospace; }
+  h1 { font-size:15px; letter-spacing:.14em; text-transform:uppercase; margin:0 0 4px; }
+  .sub { color:#8b8a88; margin:0 0 22px; font-size:12px; }
+  table { border-collapse:collapse; width:100%; margin-bottom:26px; }
+  th { text-align:left; font-weight:600; color:#8b8a88; letter-spacing:.1em;
+       text-transform:uppercase; font-size:10px; padding:0 12px 8px 0;
+       border-bottom:1px solid #26262a; }
+  td { padding:9px 12px 9px 0; border-bottom:1px solid #1a1a1e; vertical-align:top; }
+  .ok { color:#4ade80; } .warn { color:#fbbf24; } .dim { color:#8b8a88; }
+  .m { color:#a78bfa; }
+  h2 { font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+       color:#8b8a88; margin:26px 0 10px; border-top:1px solid #26262a; padding-top:16px; }
+  pre { background:#131317; border:1px solid #26262a; border-left:2px solid #7C3AED;
+        padding:12px 14px; margin:6px 0 14px; white-space:pre-wrap; word-break:break-word;
+        font-size:12px; }
+  .label { color:#8b8a88; font-size:10px; letter-spacing:.14em; text-transform:uppercase; }
+  .empty { color:#fbbf24; font-style:italic; }
+</style>
+<h1>Netzwerk · Buchungsflow /termin</h1>
+<p class="sub">Aufgezeichnet im DevTools-Netzwerk-Tab, gefiltert auf Fetch/XHR · localhost:5173 → n8n 178.105.212.117:5678 · 21.08.2026</p>
+
+<table>
+  <tr><th>#</th><th>Methode</th><th>Endpunkt</th><th>Status</th><th>Ergebnis</th></tr>
+  <tr><td class="dim">31</td><td class="m">GET</td><td>/webhook/termin-verfuegbarkeit</td><td class="ok">200</td><td>144 freie Slots, 9 Tage</td></tr>
+  <tr><td class="dim">34</td><td class="m">OPTIONS</td><td>/webhook/termin-buchung</td><td class="ok">204</td><td>Preflight, CORS ok</td></tr>
+  <tr><td class="dim">33</td><td class="m">POST</td><td>/webhook/termin-buchung</td><td class="ok">200</td><td>{"success":true} → Bestätigungsschritt</td></tr>
+  <tr><td class="dim">67</td><td class="m">POST</td><td>/webhook/termin-buchung</td><td class="warn">200</td><td class="warn">leerer Körper = Slot belegt</td></tr>
+  <tr><td class="dim">68</td><td class="m">GET</td><td>/webhook/termin-verfuegbarkeit</td><td class="ok">200</td><td>automatischer Reload nach Kollision</td></tr>
+</table>
+
+<h2>#33 · POST termin-buchung · Testbuchung</h2>
+<div class="label">Request Payload</div>
+<pre>{"name":"Browser Test","email":"hallo@avolane.de","company":"Avolane","message":"Automatisierter Test des Buchungsflows über die echten n8n-Webhooks.","date":"2026-08-26","time":"09:00"}</pre>
+<div class="label">Response · 200 · application/json</div>
+<pre class="ok">{"success":true}</pre>
+
+<h2>#67 · POST termin-buchung · Slot zwischenzeitlich vergeben</h2>
+<div class="label">Request Payload</div>
+<pre>{"name":"Browser Test","email":"hallo@avolane.de","company":"Avolane","message":"Test der Kollisionsbehandlung.","date":"2026-09-03","time":"15:30"}</pre>
+<div class="label">Response · 200 · transfer-encoding: chunked</div>
+<pre class="empty">(leerer Antwortkörper — kein success:true)</pre>
+<div class="label">Reaktion der Seite</div>
+<pre>Verfügbarkeit neu geladen (#68) → 15:30 fehlt → Hinweis
+"Dieser Termin wurde gerade vergeben. Bitte wählen Sie einen anderen Slot."</pre>
+
+<h2>#31 · GET termin-verfuegbarkeit</h2>
+<div class="label">Response · 200 · application/json (gekürzt)</div>
+<pre>{"slots":[{"date":"2026-08-24","time":"09:00"},{"date":"2026-08-24","time":"09:30"},
+ … {"date":"2026-09-03","time":"16:00"}]}</pre>

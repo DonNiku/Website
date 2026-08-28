@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Nur öffentlich verlinkte Seiten. /storno steht bewusst nicht drin: die
+  Seite ergibt ohne den persönlichen Token aus der Bestätigungsmail keinen
+  Sinn und ist zusätzlich auf noindex gesetzt.
+
+  Ohne <lastmod>: ein geratenes Datum ist schlechter als keines, Google
+  verwirft unzuverlässige Angaben ohnehin. <priority> und <changefreq>
+  werden seit Jahren ignoriert und fehlen deshalb ebenfalls.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://avolane.de/</loc>
+  </url>
+  <url>
+    <loc>https://avolane.de/termin</loc>
+  </url>
+  <url>
+    <loc>https://avolane.de/impressum</loc>
+  </url>
+  <url>
+    <loc>https://avolane.de/datenschutz</loc>
+  </url>
+</urlset>
