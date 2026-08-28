@@ -101,6 +101,12 @@ export default defineConfig({
   // Ohne das liefert der Dev-Server für jeden unbekannten Pfad die
   // Startseite aus, /datenschutz zeigte dann das Hero statt der Rechtsseite.
   appType: "mpa",
+  server: {
+    // Der führende Punkt erlaubt alle Subdomains: ngrok vergibt bei jedem
+    // Start eine neue, ohne diesen Eintrag blockt Vite die Anfragen als
+    // fremden Host ab.
+    allowedHosts: [".ngrok-free.app", ".ngrok-free.dev"],
+  },
   build: {
     rollupOptions: {
       // Rechtsseiten als eigene Einstiegspunkte statt über einen Router:
